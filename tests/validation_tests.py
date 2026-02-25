@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-WLAN_AP = "wlan1"
+WLAN_AP = "wlx74da386bb09e"
 DS_GATEWAY = "192.168.50.1"
 TEST_IP = "192.168.50.100"
 LAN_ROUTER = "192.168.1.1"
