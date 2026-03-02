@@ -1,0 +1,12 @@
+[Unit]
+Description=Nintendo DS Isolated Hotspot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ds-hotspot.sh start
+ExecStop=/usr/local/sbin/ds-hotspot.sh stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
