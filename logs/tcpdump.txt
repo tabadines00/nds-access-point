@@ -1,0 +1,36 @@
+sudo tcpdump -i wlx74da386bb09e
+
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on wlx74da386bb09e, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+17:24:35.323918 e0:e7:51:d9:a2:fd (oui Unknown) > Broadcast Null Unnumbered, xid, Flags [Response], length 6: 01 00
+17:24:36.365545 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from e0:e7:51:d9:a2:fd (oui Unknown), length 300
+17:24:36.365573 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from e0:e7:51:d9:a2:fd (oui Unknown), length 300
+17:24:36.366102 IP thomas-HP.bootps > 192.168.50.15.bootpc: BOOTP/DHCP, Reply, length 300
+17:24:36.377619 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from e0:e7:51:d9:a2:fd (oui Unknown), length 300
+17:24:36.377648 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from e0:e7:51:d9:a2:fd (oui Unknown), length 300
+17:24:36.381316 IP thomas-HP.bootps > 192.168.50.15.bootpc: BOOTP/DHCP, Reply, length 300
+17:24:36.388236 ARP, Request who-has thomas-HP tell 192.168.50.15, length 28
+17:24:36.388267 ARP, Request who-has thomas-HP tell 192.168.50.15, length 28
+17:24:36.388289 ARP, Reply thomas-HP is-at 74:da:38:6b:b0:9e (oui Unknown), length 28
+17:24:36.402364 IP 192.168.50.15.4652 > thomas-HP.domain: 65082+ A? conntest.nintendowifi.net. (43)
+17:24:36.509622 IP thomas-HP.domain > 192.168.50.15.4652: 65082 1/0/0 A 198.62.122.140 (59)
+17:24:36.518738 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [S], seq 3381952745, win 2920, options [mss 536], length 0
+17:24:36.611485 IP 198.62.122.140.http > 192.168.50.15.4653: Flags [S.], seq 4160561468, ack 3381952746, win 5360, options [mss 1460], length 0
+17:24:36.614414 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [.], ack 1, win 2920, length 0
+17:24:36.617159 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [P.], seq 1:71, ack 1, win 2920, length 70: HTTP: GET / HTTP/1.0
+17:24:36.650659 IP 198.62.122.140.http > 192.168.50.15.4653: Flags [.], ack 71, win 5430, length 0
+17:24:36.652197 IP 198.62.122.140.http > 192.168.50.15.4653: Flags [P.], seq 1:463, ack 71, win 5430, length 462: HTTP: HTTP/1.0 200 OK
+17:24:36.652248 IP 198.62.122.140.http > 192.168.50.15.4653: Flags [F.], seq 463, ack 71, win 5430, length 0
+17:24:36.660179 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [.], ack 463, win 2458, length 0
+17:24:36.664038 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [F.], seq 71, ack 464, win 2458, length 0
+17:24:36.666073 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [.], ack 464, win 2920, length 0
+17:24:36.668574 IP 192.168.50.15.4653 > 198.62.122.140.http: Flags [.], ack 464, win 2920, length 0
+17:24:36.695777 IP 198.62.122.140.http > 192.168.50.15.4653: Flags [.], ack 72, win 5430, length 0
+17:24:37.398949 IP 192.168.50.15.bootpc > thomas-HP.bootps: BOOTP/DHCP, Request from e0:e7:51:d9:a2:fd (oui Unknown), length 300
+17:24:41.422134 ARP, Request who-has 192.168.50.15 tell thomas-HP, length 28
+17:24:42.446145 ARP, Request who-has 192.168.50.15 tell thomas-HP, length 28
+17:24:43.470135 ARP, Request who-has 192.168.50.15 tell thomas-HP, length 28
+^C
+28 packets captured
+28 packets received by filter
+0 packets dropped by kernel
