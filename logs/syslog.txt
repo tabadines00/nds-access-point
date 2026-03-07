@@ -1,0 +1,66 @@
+Mar  4 21:58:38 host hostapd: wlx74da386bb09e: STA e0:e7:51:d9:a2:fd IEEE 802.11: authenticated
+Mar  4 21:58:38 host hostapd: wlx74da386bb09e: STA e0:e7:51:d9:a2:fd IEEE 802.11: associated (aid 1)
+Mar  4 21:58:38 host hostapd: wlx74da386bb09e: STA e0:e7:51:d9:a2:fd RADIUS: starting accounting session C8C846C3452A312F
+Mar  4 21:58:39 host dnsmasq-dhcp[129592]: 3239020831 available DHCP range: 192.168.50.10 -- 192.168.50.50
+Mar  4 21:58:39 host dnsmasq-dhcp[129592]: 3239020831 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:39 host dnsmasq-dhcp[129592]: 3239020831 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:39 host dnsmasq-dhcp[129592]: 3239020831 client provides name: NintendoDS
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 DHCPDISCOVER(wlx74da386bb09e) e0:e7:51:d9:a2:fd 
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 tags: wlx74da386bb09e
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 DHCPOFFER(wlx74da386bb09e) 192.168.50.25 e0:e7:51:d9:a2:fd 
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 requested options: 1:netmask, 3:router, 6:dns-server
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 next server: 192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  1 option: 53 message-type  2
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option: 54 server-identifier  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option: 51 lease-time  12h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option: 58 T1  6h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option: 59 T2  10h30m
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option:  1 netmask  255.255.255.0
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option: 28 broadcast  192.168.50.255
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option:  6 dns-server  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 3239020831 sent size:  4 option:  3 router  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 available DHCP range: 192.168.50.10 -- 192.168.50.50
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 client provides name: NintendoDS
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 DHCPDISCOVER(wlx74da386bb09e) e0:e7:51:d9:a2:fd 
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 tags: wlx74da386bb09e
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 DHCPOFFER(wlx74da386bb09e) 192.168.50.25 e0:e7:51:d9:a2:fd 
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 requested options: 1:netmask, 3:router, 6:dns-server
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 next server: 192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  1 option: 53 message-type  2
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option: 54 server-identifier  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option: 51 lease-time  12h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option: 58 T1  6h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option: 59 T2  10h30m
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option:  1 netmask  255.255.255.0
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option: 28 broadcast  192.168.50.255
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option:  6 dns-server  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 457400717 sent size:  4 option:  3 router  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 available DHCP range: 192.168.50.10 -- 192.168.50.50
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 client provides name: NintendoDS
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 DHCPREQUEST(wlx74da386bb09e) 192.168.50.25 e0:e7:51:d9:a2:fd 
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 tags: wlx74da386bb09e
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 DHCPACK(wlx74da386bb09e) 192.168.50.25 e0:e7:51:d9:a2:fd NintendoDS
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 requested options: 1:netmask, 3:router, 6:dns-server
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 next server: 192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  1 option: 53 message-type  5
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option: 54 server-identifier  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option: 51 lease-time  12h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option: 58 T1  6h
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option: 59 T2  10h30m
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option:  1 netmask  255.255.255.0
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option: 28 broadcast  192.168.50.255
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option:  6 dns-server  192.168.50.1
+Mar  4 21:58:42 host dnsmasq-dhcp[129592]: 595337245 sent size:  4 option:  3 router  192.168.50.1
+Mar  4 21:58:42 host kernel: [23899.168219] iptables dropped packets IN=wlx74da386bb09e OUT= MAC= SRC=192.168.50.1 DST=224.0.0.251 LEN=169 TOS=0x00 PREC=0x00 TTL=255 ID=35200 DF PROTO=UDP SPT=5353 DPT=5353 LEN=149 
+Mar  4 21:58:43 host dnsmasq[129592]: query[A] conntest.nintendowifi.net from 192.168.50.25
+Mar  4 21:58:43 host dnsmasq[129592]: forwarded conntest.nintendowifi.net to 178.62.43.212
+Mar  4 21:58:43 host dnsmasq[129592]: forwarded conntest.nintendowifi.net to 127.0.0.53
+Mar  4 21:58:43 host dnsmasq[129592]: reply conntest.nintendowifi.net is 198.62.122.140
+Mar  4 21:58:43 host dnsmasq-dhcp[129592]: 3232839632 available DHCP range: 192.168.50.10 -- 192.168.50.50
+Mar  4 21:58:43 host dnsmasq-dhcp[129592]: 3232839632 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:43 host dnsmasq-dhcp[129592]: 3232839632 available DHCP range: 192.168.50.10 -- 192.168.50.20
+Mar  4 21:58:43 host dnsmasq-dhcp[129592]: 3232839632 client provides name: NintendoDS
