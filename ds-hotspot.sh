@@ -45,18 +45,33 @@ create_chains() {
 delete_chains() {
    iptables -F DS_FORWARD 2>/dev/null
    iptables -X DS_FORWARD 2>/dev/null
-   iptables -F FORWARD 2>/dev/null
    iptables -F DS_INPUT 2>/dev/null
    iptables -X DS_INPUT 2>/dev/null
 }
 
-#hook_chains() {
-#    iptables -C FORWARD -i $WLAN_AP -j DS_FORWARD 2>/dev/null || \
-#        iptables -I FORWARD 1 -i $WLAN_AP -j DS_FORWARD
+create_nat() {
+    iptables -t nat -D POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET \
+        -j MASQUERADE 2>/dev/null
 
-#    iptables -C INPUT -i $WLAN_AP -j DS_INPUT 2>/dev/null || \
-#        iptables -I INPUT 1 -i $WLAN_AP -j DS_INPUT
-#}
+    iptables -t nat -A POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET \
+        -j MASQUERADE
+}
+
+remove_nat() {
+    iptables -t nat -D POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET -j MASQUERADE 2>/dev/null
+}
+
+hook_chains() {
+    # INPUT rules (traffic to the AP)
+    iptables -C INPUT -i $WLAN_AP -j DS_INPUT 2>/dev/null || \
+        iptables -I INPUT 1 -i $WLAN_AP -j DS_INPUT
+
+    iptables -C FORWARD -i $WLAN_AP -j DS_FORWARD 2>/dev/null || \
+       iptables -I FORWARD 1 -i $WLAN_AP -j DS_FORWARD
+
+    iptables -C FORWARD -o $WLAN_AP -j DS_FORWARD 2>/dev/null || \
+        iptables -I FORWARD 1 -o $WLAN_AP -j DS_FORWARD
+}
 
 unhook_chains() {
    iptables -D FORWARD -i $WLAN_AP -j DS_FORWARD 2>/dev/null
@@ -64,27 +79,23 @@ unhook_chains() {
 }
 
 configure_firewall() {
-    # Flush and remove old chains
-    delete_chains
-
-    # Create chains
-    create_chains
-
-    # Block DS -> LAN
-    iptables -I FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 2>/dev/null || \
-    iptables -A FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 
 
     # DS -> Internet
-    iptables -C FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
+    iptables -C DS_FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
         -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
-    iptables -A FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
+    iptables -A DS_FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
         -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
 
     # Internet -> DS (replies)
-    iptables -C FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
+    iptables -C DS_FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
         -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
-    iptables -A FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
+    iptables -A DS_FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
         -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+    # Block DS -> LAN
+    iptables -A DS_FORWARD -m limit --limit 5/min -j LOG --log-prefix "DS_FORWARD iptables dropped packets " --log-level 7
+    iptables -C DS_FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 2>/dev/null || \
+    iptables -A DS_FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 
 
     # DHCP (client -> server is 67/68)
     iptables -A DS_INPUT -p udp --dport 67:68 -j ACCEPT
@@ -96,24 +107,8 @@ configure_firewall() {
     iptables -A DS_INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
     # Drop anything else from AP side
-    iptables -A DS_INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables dropped packets " --log-level 7
+    iptables -A DS_INPUT -m limit --limit 5/min -j LOG --log-prefix "DS_INPUT iptables dropped packets " --log-level 7
     iptables -A DS_INPUT -j DROP
-
-    # INPUT rules (traffic to the AP)
-    iptables -C INPUT -i $WLAN_AP -j DS_INPUT 2>/dev/null || \
-        iptables -I INPUT 1 -i $WLAN_AP -j DS_INPUT
-    
-    # NAT
-    iptables -t nat -D POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET \
-        -j MASQUERADE 2>/dev/null
-
-    iptables -t nat -A POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET \
-        -j MASQUERADE
-}
-
-remove_nat() {
-    iptables -t nat -D POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET -j MASQUERADE 2>/dev/null
-    iptables -t nat -F POSTROUTING
 }
 
 start_hotspot() {
@@ -133,9 +128,14 @@ start_hotspot() {
     ip link set $WLAN_AP up
 
     echo "[+] Creating firewall chains"
-    #create_chains
-    #hook_chains
+    # Flush and remove old chains
+    delete_chains
+
+    # Create chains
+    create_chains
+    hook_chains
     configure_firewall
+    create_nat
 
     echo "[+] Starting dnsmasq"
     systemctl restart dnsmasq
