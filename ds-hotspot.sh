@@ -4,6 +4,8 @@ WLAN_INTERNET="wlp4s0"
 WLAN_AP="wlx74da386bb09e"
 DS_SUBNET="192.168.50.0/24"
 LAN_SUBNET="10.0.0.0/24"
+#LAN_SUBNET="10.87.7.0/24"
+#LAN_SUBNET="192.168.1.0/24"
 DS_IP="192.168.50.1"
 
 
@@ -43,7 +45,7 @@ create_chains() {
 delete_chains() {
    iptables -F DS_FORWARD 2>/dev/null
    iptables -X DS_FORWARD 2>/dev/null
-
+   iptables -F FORWARD 2>/dev/null
    iptables -F DS_INPUT 2>/dev/null
    iptables -X DS_INPUT 2>/dev/null
 }
@@ -68,20 +70,21 @@ configure_firewall() {
     # Create chains
     create_chains
 
+    # Block DS -> LAN
+    iptables -I FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 2>/dev/null || \
+    iptables -A FORWARD -i $WLAN_AP -d $LAN_SUBNET -j DROP 
+
     # DS -> Internet
-    iptables -I FORWARD 1 -i $WLAN_AP -o $WLAN_INTERNET \
+    iptables -C FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
+        -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
+    iptables -A FORWARD -i $WLAN_AP -o $WLAN_INTERNET \
         -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
 
     # Internet -> DS (replies)
-    iptables -I FORWARD 1 -i $WLAN_INTERNET -o $WLAN_AP \
+    iptables -C FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
+        -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT 2>/dev/null || \
+    iptables -A FORWARD -i $WLAN_INTERNET -o $WLAN_AP \
         -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-
-    # Block DS -> LAN
-    iptables -I FORWARD 1 -i $WLAN_AP -d $LAN_SUBNET -j DROP
-
-    # INPUT rules (traffic to the AP)
-    iptables -C INPUT -i $WLAN_AP -j DS_INPUT 2>/dev/null || \
-        iptables -I INPUT 1 -i $WLAN_AP -j DS_INPUT
 
     # DHCP (client -> server is 67/68)
     iptables -A DS_INPUT -p udp --dport 67:68 -j ACCEPT
@@ -93,8 +96,13 @@ configure_firewall() {
     iptables -A DS_INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
     # Drop anything else from AP side
+    iptables -A DS_INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables dropped packets " --log-level 7
     iptables -A DS_INPUT -j DROP
 
+    # INPUT rules (traffic to the AP)
+    iptables -C INPUT -i $WLAN_AP -j DS_INPUT 2>/dev/null || \
+        iptables -I INPUT 1 -i $WLAN_AP -j DS_INPUT
+    
     # NAT
     iptables -t nat -D POSTROUTING -s $DS_SUBNET -o $WLAN_INTERNET \
         -j MASQUERADE 2>/dev/null
